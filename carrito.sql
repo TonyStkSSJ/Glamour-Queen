@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2024 a las 14:59:03
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Tiempo de generación: 20-06-2024 a las 20:41:02
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -79,8 +79,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `inventario`, `id_categoria`, `talla`, `color`) VALUES
-(3, 'Shorts DKNY', 'Shorts DKNY Talla 48', 580, 'shorts_dkny.jpg', 3, 1, '48', 'blue'),
-(4, 'Playera Tommy', 'Playera Tommy para dama', 480, 'shirt1.jpg', 2, 1, 'XL', 'blue');
+(7, 'Playera Tommy Hilfiger', 'Playera Tommy Hilfiger XL', 480, 'shirt1.jpg', 1, 1, 'XL', 'blue');
 
 -- --------------------------------------------------------
 
@@ -186,7 +185,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `productos_venta`

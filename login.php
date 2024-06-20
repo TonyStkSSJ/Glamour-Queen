@@ -1,47 +1,47 @@
-<?php
-session_start();
+<html lang="es">
+    <head>
+        <title> index </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <style>
+            *{
+                box-sizing: border-box;
+            }
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+            body{
+                font-family: "Arial", sans-serif;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                overflow: hidden;
+                margin: 0;
+            }
 
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "steam_rojo";
-
-$conn = new mysqli($server, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'] ?? null;
-    $password = $_POST['password'] ?? null;
-
-    if ($email && $password) {
-        $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
-        if ($stmt === false) {
-            die("Error preparing statement: " . $conn->error);
-        }
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->bind_result($user_id, $hashed_password);
-        $stmt->fetch();
-        $stmt->close();
-
-        if (password_verify($password, $hashed_password)) {
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['logged_in'] = true;
-            header("Location: store.php");
-            exit();
-        } else {
-            echo "Invalid email or password.";
-        }
-    } else {
-        echo "Email and password are required.";
-    }
-
-    $conn->close();
-}
-?>
+            p{ color: #bd7878 }
+        </style>
+    </head>
+    <body>
+        <div class="form-container">
+            <h1> Ingresar </h1>
+            <form action="../php/loguin.php" method="post" id="loginThingy">
+                <div class="form-control">
+                    <input type="email" name="email" required>
+                    <label> Correo Electrónico </label>
+                </div>
+                <div class="form-control">
+                    <input type="password" name="password" required>
+                    <label> Contraseña </label>
+                </div>
+                <button class="form-btn"> Enviar </button>
+                <p class="form-text"> ¿No tiene una cuenta?
+                    <a href="registro.php"> ¿Crear cuenta? </a>
+                </p>
+            </form>
+        </div>
+        <script src="./js/js.js "> </script>
+    </body>
+</html>

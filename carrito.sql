@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2024 a las 20:41:02
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 21-06-2024 a las 15:26:53
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -59,6 +59,26 @@ INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `imagen`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `envios`
+--
+
+CREATE TABLE `envios` (
+  `id_envio` int(11) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
+  `id_venta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `envios`
+--
+
+INSERT INTO `envios` (`id_envio`, `direccion`, `id_venta`) VALUES
+(1, 'C. Gustavo Diaz Ordaz', 31),
+(6, 'PRI CHACON', 32);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `productos`
 --
 
@@ -79,7 +99,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `inventario`, `id_categoria`, `talla`, `color`) VALUES
-(7, 'Playera Tommy Hilfiger', 'Playera Tommy Hilfiger XL', 480, 'shirt1.jpg', 1, 1, 'XL', 'blue');
+(1, 'Playera Tommy Hilfiger', 'Playera Tommy Hilfiger Roja Talla XL', 480, 'shirt1.jpg', 5, 1, 'XL', 'red\r\n'),
+(2, 'Playera Calvin Klein ', 'Playera Blanca Calvin Klein Talla XL', 500, 'shirt2.jpg', 3, 1, 'XL', 'white');
 
 -- --------------------------------------------------------
 
@@ -95,6 +116,14 @@ CREATE TABLE `productos_venta` (
   `precio` double NOT NULL,
   `subtotal` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `productos_venta`
+--
+
+INSERT INTO `productos_venta` (`id`, `id_venta`, `id_producto`, `cantidad`, `precio`, `subtotal`) VALUES
+(10, 1, 2, 1, 500, 500),
+(11, 32, 2, 2, 500, 1000);
 
 -- --------------------------------------------------------
 
@@ -112,6 +141,14 @@ CREATE TABLE `usuario` (
   `nivel` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nombre`, `telefono`, `email`, `password`, `img_perfil`, `nivel`) VALUES
+(1, 'Anthony Hernandez Barrera', '7712146873', 'don.tony.stark.xd@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', 'default.jpg', 'admin'),
+(8, 'Emilio Garcia Baños', '7712146873', 'jomiscrackxd@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '', 'cliente');
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +161,14 @@ CREATE TABLE `ventas` (
   `total` double NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `id_usuario`, `total`, `fecha`) VALUES
+(1, 7, 500, '2024-06-21 15:58:49'),
+(32, 8, 1000, '2024-06-21 18:39:18');
 
 --
 -- Índices para tablas volcadas
@@ -140,6 +185,12 @@ ALTER TABLE `carrito`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `envios`
+--
+ALTER TABLE `envios`
+  ADD PRIMARY KEY (`id_envio`);
 
 --
 -- Indices de la tabla `productos`
@@ -182,28 +233,34 @@ ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `envios`
+--
+ALTER TABLE `envios`
+  MODIFY `id_envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT de la tabla `productos_venta`
 --
 ALTER TABLE `productos_venta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
